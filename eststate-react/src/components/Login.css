@@ -1,0 +1,14 @@
+.Container{
+    width: 400px;
+    height: 500px;
+    background: rgba(133, 133, 133, 0.2);
+    box-shadow: rgba(255, 255, 255, 0.075) 0px 7px 29px 0px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid #ffffff38;
+    border-radius: 12px;
+    color: #fff;
+    z-index: 30;
+    transition: all 0.5s ease-in-out;
+    padding: 60px 40px;
+}

@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts */
+@font-face {
+  font-family: 'Cairo';
+  src: url('./assets/css/Cairo-VariableFont_slnt,wght.ttf') format('truetype');
+  font-style: normal;
+}
+/* ---------------------------------------------- */
+
+/* scroll */
+/* تنسيق شريط التمرير العامودي */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #0000001f;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #0000003c;
+}
+
+/* تنسيق شريط التمرير الأفقي */
+::-webkit-scrollbar:horizontal {
+  height: 12px;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: #0000001f;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background-color: #0000003c;
+}
+
+
+
+/* input arrow hidden */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+/* ---------------------------------------------- */
+
+
+
+
+:root {
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Cairo';
+  direction: rtl;
+  background-color: #E4F1F1;
+}
+
+*{
+  cursor: default;
+}
