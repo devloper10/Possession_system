@@ -1,0 +1,201 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|c:\\users\\pc\\desktop\\2024-12-29\\eststate\\eststate\\controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|solutionrelative:eststate\\controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|c:\\users\\pc\\desktop\\2024-12-29\\eststate\\eststate\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|solutionrelative:eststate\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|c:\\users\\pc\\desktop\\2024-12-29\\eststate\\eststate\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|solutionrelative:eststate\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|c:\\users\\pc\\desktop\\2024-12-29\\eststate\\eststate\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|solutionrelative:eststate\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|c:\\users\\pc\\desktop\\2024-12-29\\eststate\\eststate\\controllers\\allyearscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|solutionrelative:eststate\\controllers\\allyearscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|c:\\users\\pc\\desktop\\2024-12-29\\eststate\\eststate\\controllers\\stockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|solutionrelative:eststate\\controllers\\stockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|c:\\users\\pc\\desktop\\2024-12-29\\eststate\\eststate\\controllers\\yearsdbcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|solutionrelative:eststate\\controllers\\yearsdbcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|c:\\users\\pc\\desktop\\2024-12-29\\eststate\\eststate\\controllers\\decisionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|solutionrelative:eststate\\controllers\\decisionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|c:\\users\\pc\\desktop\\2024-12-29\\eststate\\eststate\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|solutionrelative:eststate\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|c:\\users\\pc\\desktop\\2024-12-29\\eststate\\eststate\\models\\logs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|solutionrelative:eststate\\models\\logs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|c:\\users\\pc\\desktop\\2024-12-29\\eststate\\eststate\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DED8ED47-DA7C-4758-8494-204D2546E3E5}|Eststate\\Eststate.csproj|solutionrelative:eststate\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SearchController.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\SearchController.cs",
+              "RelativeDocumentMoniker": "Eststate\\Controllers\\SearchController.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\SearchController.cs",
+              "RelativeToolTip": "Eststate\\Controllers\\SearchController.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAcwDgAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-29T07:09:47.544Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\appsettings.json",
+              "RelativeDocumentMoniker": "Eststate\\appsettings.json",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\appsettings.json",
+              "RelativeToolTip": "Eststate\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-12-08T06:18:58.959Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Program.cs",
+              "RelativeDocumentMoniker": "Eststate\\Program.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Program.cs",
+              "RelativeToolTip": "Eststate\\Program.cs",
+              "ViewState": "AgIAAGwAAAAAAAAAAAAAAIIAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:56:58.24Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AllYearsController.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\AllYearsController.cs",
+              "RelativeDocumentMoniker": "Eststate\\Controllers\\AllYearsController.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\AllYearsController.cs",
+              "RelativeToolTip": "Eststate\\Controllers\\AllYearsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:11:19.636Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DecisionsController.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\DecisionsController.cs",
+              "RelativeDocumentMoniker": "Eststate\\Controllers\\DecisionsController.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\DecisionsController.cs",
+              "RelativeToolTip": "Eststate\\Controllers\\DecisionsController.cs",
+              "ViewState": "AgIAAIMAAAAAAAAAAAAIwGwAAABZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:11:18.864Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "YearsDBController.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\YearsDBController.cs",
+              "RelativeDocumentMoniker": "Eststate\\Controllers\\YearsDBController.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\YearsDBController.cs",
+              "RelativeToolTip": "Eststate\\Controllers\\YearsDBController.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAcwH0AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-15T10:11:16.796Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "StocksController.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\StocksController.cs",
+              "RelativeDocumentMoniker": "Eststate\\Controllers\\StocksController.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\StocksController.cs",
+              "RelativeToolTip": "Eststate\\Controllers\\StocksController.cs",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAIwHMAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-07T10:37:37.833Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Eststate\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Eststate\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAowEkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T11:21:32.772Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Models\\User.cs",
+              "RelativeDocumentMoniker": "Eststate\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Models\\User.cs",
+              "RelativeToolTip": "Eststate\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T11:20:52.306Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Eststate\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Eststate\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T11:20:01.91Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Logs.cs",
+              "DocumentMoniker": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Models\\Logs.cs",
+              "RelativeDocumentMoniker": "Eststate\\Models\\Logs.cs",
+              "ToolTip": "C:\\Users\\PC\\Desktop\\2024-12-29\\Eststate\\Eststate\\Models\\Logs.cs",
+              "RelativeToolTip": "Eststate\\Models\\Logs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-04T11:15:08.317Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
