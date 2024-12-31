@@ -1,12 +1,72 @@
 import React, { useEffect, useState } from "react";
 import "../../assets/css/styleImgDetails.css";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 import api from "@/api";
 
 const YearsDBDetails = () => {
   const { guidId } = useParams();
   const [details, setDetails] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isCustomEdit, setIsCustomEdit] = useState(false);
+
+  const navigate = useNavigate();
+
+
+  const openEditPopup = (row) => {
+    setEditFormData({
+      guidId: row.guidId,
+      propertyNumber: row.propertyNumber,
+      district: row.district,
+      contract: row.contract,
+      agentOrOwner: row.agentOrOwner,
+      dossierAudit: row.dossierAudit,
+      report: row.report,
+      lawsuitRegistration: row.lawsuitRegistration,
+      lawsuitNumber: row.lawsuitNumber,
+      pleading: row.pleading,
+      inspection: row.inspection,
+      courtDecision: row.courtDecision,
+      paymentProcess: row.paymentProcess,
+      acquiredArea: row.acquiredArea,
+      areaUnit: row.areaUnit,
+      pricePerMeter: row.pricePerMeter,
+      deedNumber: row.deedNumber,
+      deedDate: row.deedDate,
+      remainingArea: row.remainingArea,
+      transactionActions: row.transactionActions,
+      propertyLocation: row.propertyLocation,
+      note: row.note,
+      imageFilePath: row.imageFilePaths,
+    });
+    setIsEditPopupOpen(true);
+  };
+
+  const closeEditPopup = () => setIsEditPopupOpen(false);
+
+  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
+  const [editFormData, setEditFormData] = useState({
+    propertyNumber: "", //
+    district: "", //
+    contract: "", //
+    agentOrOwner: "", //
+    dossierAudit: "", //
+    report: "", //
+    lawsuitRegistration: "", //
+    lawsuitNumber: "", //
+    pleading: "", //
+    inspection: "", //
+    courtDecision: "", //
+    paymentProcess: "", //
+    acquiredArea: "", //
+    areaUnit: "", //
+    pricePerMeter: "", //
+    deedNumber: "", //
+    deedDate: "", //
+    remainingArea: "", //
+    transactionActions: "", //
+    propertyLocation: "", //
+    note: "", //
+  });
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -20,6 +80,55 @@ const YearsDBDetails = () => {
 
     fetchDetails();
   }, [guidId]);
+
+  const handleSaveEdit = async (updatedData) => {
+      try {
+        const payload = {
+          propertyNumber: updatedData.propertyNumber,
+          district: updatedData.district,
+          contract: updatedData.contract,
+          agentOrOwner: updatedData.agentOrOwner,
+          dossierAudit: updatedData.dossierAudit,
+          report: updatedData.report,
+          lawsuitRegistration: updatedData.lawsuitRegistration,
+          lawsuitNumber: updatedData.lawsuitNumber,
+          pleading: updatedData.pleading,
+          inspection: updatedData.inspection,
+          courtDecision: updatedData.courtDecision,
+          paymentProcess: updatedData.paymentProcess,
+          acquiredArea: updatedData.acquiredArea,
+          areaUnit: updatedData.areaUnit,
+          pricePerMeter: updatedData.pricePerMeter,
+          deedNumber: updatedData.deedNumber,
+          deedDate: updatedData.deedDate,
+          remainingArea: updatedData.remainingArea,
+          transactionActions: updatedData.transactionActions,
+          propertyLocation: updatedData.propertyLocation,
+          note: updatedData.note,
+        };
+  
+        await api.put(`/YearsDB/PutYearsDB/${updatedData.guidId}`, payload);
+  
+        setDetails(payload);
+
+        closeEditPopup();
+  
+        Swal.fire({
+          title: "تم التحديث",
+          text: "تم تحديث البيانات بنجاح!",
+          icon: "success",
+          confirmButtonText: "موافق",
+        });
+      } catch (error) {
+        console.error("Error updating data:", error);
+        Swal.fire({
+          title: "خطأ",
+          text: "حدث خطأ أثناء تحديث البيانات",
+          icon: "error",
+          confirmButtonText: "موافق",
+        });
+      }
+    };
 
   // فتح الصورة في نافذة منبثقة
   const openImagePopup = (path) => {
@@ -52,12 +161,18 @@ const YearsDBDetails = () => {
       <div className="bg-[#fffef4] rounded-lg shadow-lg p-6 w-2/3 h-full flex flex-col gap-4">
         <div className="contaner">
           <button
-            onClick={() => {
-              window.history.back();
-            }}
+            onClick={() => navigate(-1)}
             className="px-3 py-2 bg-red-500 text-white font-serif font-bold rounded-xl transform duration-200 ease-in-out hover:bg-red-700"
           >
             رجوع
+          </button>
+          <button
+            className="px-3 py-2 mr-5 bg-blue-600 text-white font-serif font-bold rounded-xl transform duration-200 ease-in-out hover:bg-blue-800"
+            onClick={() => {
+              openEditPopup(details);
+            }}
+          >
+            تعديل
           </button>
           <h2 className="text-xl font-bold text-center mb-16 text-[#244345]">
             تفاصيل رقم العقار : {details.propertyNumber || "غير متوفر"}
@@ -69,12 +184,11 @@ const YearsDBDetails = () => {
               <strong>المقاطعة :</strong> {details.district || "غير متوفر"}
             </p>
             <p className="text-[#244345]">
-              <strong>المساحة المستملكة :</strong>{" "}
-              {details.acquiredArea || "غير متوفر"}
+              <strong>المساحة المستملكة :</strong> {details.acquiredArea || 0}
             </p>
             <p className="text-[#244345]">
               <strong>المساحة المتبقية م2 :</strong>{" "}
-              {details.remainingArea || "غير متوفر"}
+              {details.remainingArea || 0}
             </p>
             <p className="text-[#244345]">
               <strong>تدقيق الأضابير :</strong>{" "}
@@ -85,7 +199,7 @@ const YearsDBDetails = () => {
               {details.paymentProcess || "غير متوفر"}
             </p>
             <p className="text-[#244345]">
-              <strong>رقم الصك :</strong> {details.deedNumber || "غير متوفر"}
+              <strong>رقم الصك :</strong> {details.deedNumber || 0}
             </p>
             <p className="text-[#244345]">
               <strong>تأريخ الصك :</strong>{" "}
@@ -104,14 +218,13 @@ const YearsDBDetails = () => {
               <strong>وحدة المساحة :</strong> {details.areaUnit || "غير متوفر"}
             </p>
             <p className="text-[#244345]">
-              <strong>المحضر :</strong> {details.report || "غير متوفر"}
+              <strong>المحضر :</strong> {details.report || 0}
             </p>
             <p className="text-[#244345]">
-              <strong>السعر بالمتر :</strong>{" "}
-              {details.pricePerMeter || "غير متوفر"}
+              <strong>السعر بالمتر :</strong> {details.pricePerMeter || 0}
             </p>
             <p className="text-[#244345]">
-              <strong>السعر الكلي :</strong> {details.totalPrice || "غير متوفر"}
+              <strong>السعر الكلي :</strong> {details.totalPrice || 0}
             </p>
             <p className="text-[#244345]">
               <strong>إجراءات المعاملة :</strong>{" "}
@@ -245,6 +358,455 @@ const YearsDBDetails = () => {
               className="w-9/12 max-w-full max-h-full rounded-lg"
             />
           )}
+        </div>
+      )}
+
+      {isEditPopupOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white w-full max-w-5xl py-6 px-8 rounded-lg shadow-lg overflow-auto max-h-[90vh]">
+            <h2 className="text-2xl font-bold mb-6 text-center">
+              تعديل البيانات
+            </h2>
+            <form className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* رقم العقار */}
+                <div>
+                  <label className="block font-semibold">رقم العقار</label>
+                  <input
+                    type="text"
+                    name="propertyNumber"
+                    value={editFormData.propertyNumber || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        propertyNumber: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+
+                {/* المقاطعة */}
+                <div>
+                  <label className="block font-semibold">المقاطعة</label>
+                  <input
+                    type="text"
+                    name="district"
+                    value={editFormData.district || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        district: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* العقد */}
+                <div>
+                  <label className="block font-semibold">العقد</label>
+                  <input
+                    type="text"
+                    name="contract"
+                    value={editFormData.contract || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        contract: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* الوكيل أو صاحب الملك */}
+                <div>
+                  <label className="block font-semibold">
+                    اسم الوكيل أو صاحب الملك
+                  </label>
+                  <input
+                    type="text"
+                    name="agentOrOwner"
+                    value={editFormData.agentOrOwner || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        agentOrOwner: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* تدقيق الإضبارة */}
+                <div>
+                  <label className="block font-semibold">تدقيق الإضبارة</label>
+                  <input
+                    type="text"
+                    name="dossierAudit"
+                    value={editFormData.dossierAudit || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        dossierAudit: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* محضر */}
+                <div>
+                  <label className="block font-semibold">محضر</label>
+                  <input
+                    type="text"
+                    name="report"
+                    value={editFormData.report || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        report: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* تسجيل الدعوى */}
+                <div>
+                  <label className="block font-semibold">تسجيل الدعوى</label>
+                  <input
+                    type="text"
+                    name="lawsuitRegistration"
+                    value={editFormData.lawsuitRegistration || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        lawsuitRegistration: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* رقم الدعوى */}
+                <div>
+                  <label className="block font-semibold">رقم الدعوى</label>
+                  <input
+                    type="text"
+                    name="lawsuitNumber"
+                    value={editFormData.lawsuitNumber || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        lawsuitNumber: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* المرافعة */}
+                <div>
+                  <label className="block font-semibold">المرافعة</label>
+                  <input
+                    type="text"
+                    name="pleading"
+                    value={editFormData.pleading || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        pleading: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* الكشف */}
+                <div>
+                  <label className="block font-semibold">الكشف</label>
+                  <input
+                    type="text"
+                    name="inspection"
+                    value={editFormData.inspection || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        inspection: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* قرار المحكمة */}
+                <div>
+                  <label className="block font-semibold">قرار المحكمة</label>
+                  <input
+                    type="text"
+                    name="courtDecision"
+                    value={editFormData.courtDecision || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        courtDecision: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* ترويج معاملة الصرف */}
+                <div>
+                  <label className="block font-semibold">
+                    ترويج معاملة الصرف
+                  </label>
+                  <input
+                    type="text"
+                    name="paymentProcess"
+                    value={editFormData.paymentProcess || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        paymentProcess: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* المساحة المستملكة */}
+                <div>
+                  <label className="block font-semibold">
+                    المساحة المستملكة
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="acquiredArea"
+                    value={editFormData.acquiredArea || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        acquiredArea: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* السعر للمتر */}
+                <div>
+                  <label className="block font-semibold">السعر للمتر</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="pricePerMeter"
+                    value={editFormData.pricePerMeter || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        pricePerMeter: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* الوحدة */}
+                <div>
+                  <label className="block font-semibold">الوحدة</label>
+                  <input
+                    type="text"
+                    name="areaUnit"
+                    value={editFormData.areaUnit || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        areaUnit: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* رقم الصك */}
+                <div>
+                  <label className="block font-semibold">رقم الصك</label>
+                  <input
+                    type="text"
+                    name="deedNumber"
+                    value={editFormData.deedNumber || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        deedNumber: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* تاريخ الصك */}
+                <div>
+                  <label className="block font-semibold">تاريخ الصك</label>
+                  <input
+                    type="date"
+                    name="deedDate"
+                    value={editFormData.deedDate || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        deedDate: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* المساحة المتبقية */}
+                <div>
+                  <label className="block font-semibold">
+                    المساحة المتبقية
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="remainingArea"
+                    value={editFormData.remainingArea || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        remainingArea: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* موقع العقار */}
+                <div>
+                  <label className="block font-semibold">موقع العقار</label>
+                  <input
+                    type="text"
+                    name="propertyLocation"
+                    value={editFormData.propertyLocation || ""}
+                    onChange={(e) =>
+                      setEditFormData({
+                        ...editFormData,
+                        propertyLocation: e.target.value,
+                      })
+                    }
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+
+                {/* إجراءات المعاملة */}
+                <div>
+                  <label className="block font-semibold">
+                    إجراءات المعاملة
+                  </label>
+                  <select
+                    name="transactionActions"
+                    value={
+                      editFormData.transactionActions === "" && isCustomEdit
+                        ? "custom"
+                        : editFormData.transactionActions
+                    }
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (value === "custom") {
+                        setEditFormData({
+                          ...editFormData,
+                          transactionActions: "",
+                        }); // تعيين قيمة فارغة للحقل النصي
+                        setIsCustomEdit(true); // تفعيل الحقل المخصص
+                      } else {
+                        setEditFormData({
+                          ...editFormData,
+                          transactionActions: value,
+                        });
+                        setIsCustomEdit(false); // إلغاء تفعيل الحقل المخصص
+                      }
+                    }}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  >
+                    <option value="">اختر إجراء المعاملة</option>
+                    <option value="تم حسم السند">تم حسم السند</option>
+                    <option value="لم يتم حسم السند">لم يتم حسم السند</option>
+                    <option value="custom">إجراء مخصص</option>
+                  </select>
+
+                  {/* حقل الإدخال المخصص */}
+                  {isCustomEdit && (
+                    <input
+                      type="text"
+                      name="transactionActions"
+                      placeholder="أدخل إجراء مخصص"
+                      value={editFormData.transactionActions}
+                      onChange={(e) =>
+                        setEditFormData({
+                          ...editFormData,
+                          transactionActions: e.target.value,
+                        })
+                      }
+                      className="w-full mt-2 p-2 border border-gray-300 rounded"
+                    />
+                  )}
+                </div>
+
+                {/* عرض الصور (للقراءة فقط) */}
+                <div className="col-span-2">
+                  <label className="block font-semibold">الصور</label>
+                  <div className="flex flex-wrap gap-2">
+                    {editFormData.imageFilePaths &&
+                      editFormData.imageFilePaths.map((src, index) => (
+                        <img
+                          key={index}
+                          src={src}
+                          alt={`Image ${index + 1}`}
+                          className="w-32 h-32 object-cover border border-gray-300 rounded"
+                        />
+                      ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* ملاحظات */}
+              <div>
+                <label className="block font-semibold">ملاحظات</label>
+                <textarea
+                  name="note"
+                  value={editFormData.note || ""}
+                  onChange={(e) =>
+                    setEditFormData({ ...editFormData, note: e.target.value })
+                  }
+                  className="w-full h-32 max-h-32 p-2 border border-gray-300 rounded"
+                ></textarea>
+              </div>
+
+              {/* الأزرار */}
+              <div className="flex justify-end space-x-2 mt-4">
+                <button
+                  type="button"
+                  onClick={closeEditPopup}
+                  className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500 ml-3"
+                >
+                  إلغاء
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSaveEdit(editFormData)}
+                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                  حفظ
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>

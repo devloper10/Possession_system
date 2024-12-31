@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Eststate.Controllers
 {
@@ -24,10 +25,18 @@ namespace Eststate.Controllers
 
             var results = new List<object>();
 
+            var users = _context.Users.ToDictionary(u => u.guidId, u => u.fullName);
+
             // البحث في جدول Stocks
             var stocksResults = _context.Stocks
                 .Where(x => x.PropertyNumber.Contains(term))
                 .ToList();
+
+            foreach (var Stocks in stocksResults)
+            {
+                Stocks.UserName = users.ContainsKey(Stocks.addBy) ? users[Stocks.addBy] : "غير معروف";
+            }
+
             if (stocksResults.Any())
             {
                 results.Add(new { TableName = "Stocks", Data = stocksResults });
@@ -37,6 +46,12 @@ namespace Eststate.Controllers
             var yearsDBResults = _context.yearsDBs
                 .Where(x => x.PropertyNumber.Contains(term))
                 .ToList();
+
+            foreach (var YearsDB in yearsDBResults)
+            {
+                YearsDB.UserName = users.ContainsKey(YearsDB.addBy) ? users[YearsDB.addBy] : "غير معروف";
+            }
+
             if (yearsDBResults.Any())
             {
                 results.Add(new { TableName = "YearsDB", Data = yearsDBResults });
@@ -46,6 +61,12 @@ namespace Eststate.Controllers
             var allYearsResults = _context.AllYears
                 .Where(x => x.PropertyNumber.Contains(term))
                 .ToList();
+
+            foreach (var allYears in allYearsResults)
+            {
+                allYears.UserName = users.ContainsKey(allYears.addBy) ? users[allYears.addBy] : "غير معروف";
+            }
+
             if (allYearsResults.Any())
             {
                 results.Add(new { TableName = "AllYears", Data = allYearsResults });
@@ -55,6 +76,12 @@ namespace Eststate.Controllers
             var decisionsResults = _context.Decisions
                 .Where(x => x.PropertyNumber.Contains(term))
                 .ToList();
+
+            foreach (var decision in decisionsResults)
+            {
+                decision.UserName = users.ContainsKey(decision.addBy) ? users[decision.addBy] : "غير معروف";
+            }
+
             if (decisionsResults.Any())
             {
                 results.Add(new { TableName = "Decisions", Data = decisionsResults });

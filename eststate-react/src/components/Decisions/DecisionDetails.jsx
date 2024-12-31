@@ -1,7 +1,8 @@
 // DecisionDetails.jsx
 import React, { useEffect, useState } from "react";
 import "../../assets/css/styleImgDetails.css"; // قم بإنشاء ملف CSS حسب الحاجة أو استخدم نفس التنسيق
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate  } from "react-router-dom";
+
 import api from "@/api";
 
 const DecisionDetails = () => {
@@ -9,10 +10,47 @@ const DecisionDetails = () => {
   const [details, setDetails] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const navigate = useNavigate();
+
+
+  const [isEditPopupOpen, setIsEditPopupOpen] = useState(false);
+  const [editFormData, setEditFormData] = useState({
+    guidId: "",
+    propertyNumber: "",
+    district: "",
+    lawsuitNumber: "",
+    areaInDeed: "",
+    acquiredArea: "",
+    areaUnit: "",
+    pricePerMeter: "",
+    notes: "",
+    imageFilePaths: [],
+  });
+
+  const openEditPopup = (row) => {
+    setEditFormData({
+      guidId: row.guidId,
+      propertyNumber: row.propertyNumber,
+      district: row.district,
+      lawsuitNumber: row.lawsuitNumber,
+      areaInDeed: row.areaInDeed,
+      acquiredArea: row.acquiredArea,
+      areaUnit: row.areaUnit,
+      pricePerMeter: row.pricePerMeter,
+      notes: row.notes,
+      imageFilePaths: row.imageFilePaths || [],
+    });
+    setIsEditPopupOpen(true);
+  };
+
+  const closeEditPopup = () => setIsEditPopupOpen(false);
+
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const response = await api.get(`/Decisions/GetDecisionDetails/${guidId}`);
+        const response = await api.get(
+          `/Decisions/GetDecisionDetails/${guidId}`
+        );
         setDetails(response.data);
       } catch (error) {
         console.error("Error fetching details:", error);
@@ -21,6 +59,43 @@ const DecisionDetails = () => {
 
     fetchDetails();
   }, [guidId]);
+
+  // دالة لجلب البيانات بناءً على الحالة النشطة
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditFormData({
+      ...editFormData,
+      [name]: value,
+    });
+  };
+
+  const handleSaveEdit = async () => {
+    try {
+      const payload = {
+        ...editFormData,
+      };
+
+      await api.put(`/Decisions/PutDecision/${editFormData.guidId}`, payload);
+
+      setDetails(payload);
+      closeEditPopup();
+
+      Swal.fire({
+        title: "تم التحديث",
+        text: "تم تحديث البيانات بنجاح!",
+        icon: "success",
+        confirmButtonText: "موافق",
+      });
+    } catch (error) {
+      console.error("Error updating data:", error);
+      Swal.fire({
+        title: "خطأ",
+        text: "حدث خطأ أثناء تحديث البيانات",
+        icon: "error",
+        confirmButtonText: "موافق",
+      });
+    }
+  };
 
   const formatDate = (date) => {
     if (!date) return "غير متوفر";
@@ -42,8 +117,14 @@ const DecisionDetails = () => {
     };
 
     // استخراج الجزء الخاص بالتاريخ والوقت بشكل منفصل
-    const formattedDate = new Date(date).toLocaleDateString("en-CA", optionsDate);
-    const formattedTime = new Date(date).toLocaleTimeString("en-CA", optionsTime);
+    const formattedDate = new Date(date).toLocaleDateString(
+      "en-CA",
+      optionsDate
+    );
+    const formattedTime = new Date(date).toLocaleTimeString(
+      "en-CA",
+      optionsTime
+    );
 
     // دمج التاريخ والوقت بالفاصلة المطلوبة
     return `${formattedDate} / ${formattedTime.toLowerCase()}`;
@@ -66,55 +147,70 @@ const DecisionDetails = () => {
       <div className="w-full h-[93vh] bg-white rounded-lg shadow-lg p-6 flex gap-10">
         {/* قسم التفاصيل */}
         <div className="w-2/3 flex flex-col gap-4 px-10">
-        <div className="contaner">
-        <button
-            onClick={() => {
-              window.history.back();
-            }}
-            className="px-3 py-2 bg-red-500 text-white font-serif font-bold rounded-xl transform duration-200 ease-in-out hover:bg-red-700"
-          >
-            رجوع
-          </button>
-          <h2 className="text-3xl font-bold text-gray-800 text-center">
-            تفاصيل العقار رقم: {details.propertyNumber}
-          </h2>
-        </div>
+          <div className="contaner">
+            <button
+              onClick={() => navigate(-1)}
+              className="px-3 py-2 bg-red-500 text-white font-serif font-bold rounded-xl transform duration-200 ease-in-out hover:bg-red-700"
+            >
+              رجوع
+            </button>
+            <button
+              className="px-3 py-2 mr-5 bg-blue-600 text-white font-serif font-bold rounded-xl transform duration-200 ease-in-out hover:bg-blue-800"
+              onClick={() => {
+                openEditPopup(details);
+              }}
+            >
+              تعديل
+            </button>
+            <h2 className="text-3xl font-bold text-gray-800 text-center">
+              تفاصيل العقار رقم: {details.propertyNumber}
+            </h2>
+          </div>
           <div className="grid grid-cols-2 gap-14 xl:gap-20 text-center mt-8">
             <p className="text-gray-700 text-lg">
               <strong>المقاطعة: </strong> {details.district}
             </p>
             <p className="text-gray-700 text-lg">
-              <strong>رقم الدعوى: </strong> {details.lawsuitNumber || "غير متوفر"}
+              <strong>رقم الدعوى: </strong>{" "}
+              {details.lawsuitNumber || "غير متوفر"}
             </p>
             <p className="text-gray-700 text-lg">
-              <strong>المساحة في السند: </strong> {details.areaInDeed || "غير متوفر"}
+              <strong>المساحة في السند: </strong> {details.areaInDeed || 0}
             </p>
             <p className="text-gray-700 text-lg">
-              <strong>المساحة المستملكة: </strong> {details.acquiredArea || "غير متوفر"}
+              <strong>المساحة المستملكة: </strong> {details.acquiredArea || 0}
             </p>
             <p className="text-gray-700 text-lg">
-              <strong>سعر المتر: </strong> {details.pricePerMeter || "غير متوفر"}
+              <strong>سعر المتر: </strong> {details.pricePerMeter || 0}
             </p>
             <p className="text-gray-700 text-lg">
-              <strong>سعر الكلي: </strong> {details.price || "غير متوفر"}
+              <strong>سعر الكلي: </strong> {details.price || 0}
             </p>
             <p className="text-gray-700 text-lg">
-              <strong>موقف الاستملاك: </strong> {details.acquisitionStatus || "غير متوفر"}
+              <strong>موقف الاستملاك: </strong>{" "}
+              {details.acquisitionStatus || "غير متوفر"}
             </p>
             <p className="text-gray-700 text-lg">
-              <strong>موقف السند: </strong> {details.isDone === true ? "تم الحسم (السند)" : "لم يتم حسم (السند)"}
+              <strong>موقف السند: </strong>{" "}
+              {details.isDone === true
+                ? "تم الحسم (السند)"
+                : "لم يتم حسم (السند)"}
             </p>
             <p className="text-gray-700 text-lg">
               <strong>أضيف بواسطة: </strong> {details.userName || "غير معروف"}
             </p>
             <p className="text-gray-700 text-lg">
               <strong>تاريخ الإضافة: </strong>
-              <span dir="ltr">{formatDate(details.createdAt || "غير معروف")}</span>
+              <span dir="ltr">
+                {formatDate(details.createdAt || "غير معروف")}
+              </span>
             </p>
             {details.deletedAt && (
               <p className="text-gray-700 text-lg">
-                <strong>تاريخ الحذف: </strong> 
-                <span dir="ltr">{formatDate(details.deletedAt || "غير معروف")}</span>
+                <strong>تاريخ الحذف: </strong>
+                <span dir="ltr">
+                  {formatDate(details.deletedAt || "غير معروف")}
+                </span>
               </p>
             )}
           </div>
@@ -130,11 +226,15 @@ const DecisionDetails = () => {
 
         {/* قسم الصور */}
         <div className="w-1/3">
-          <h3 className="text-xl font-bold text-gray-700 mb-4">صور وملفات العقار</h3>
+          <h3 className="text-xl font-bold text-gray-700 mb-4">
+            صور وملفات العقار
+          </h3>
           <div className="overflow-y-auto p-2 m-1 grid xl:grid-cols-3 lg:grid-cols-2 gap-y-4 justify-center h-[94%]">
             {details.imageFilePaths && details.imageFilePaths.length > 0 ? (
               details.imageFilePaths.map((path, index) => {
-                const fileUrl = `${import.meta.env.VITE_APIIMAGES_BASE_URL}${path}`;
+                const fileUrl = `${
+                  import.meta.env.VITE_APIIMAGES_BASE_URL
+                }${path}`;
                 console.log("Image File Paths:", details.imageFilePaths);
 
                 const isPdf = path.toLowerCase().endsWith(".pdf");
@@ -189,6 +289,134 @@ const DecisionDetails = () => {
               className="w-10/12 max-w-full max-h-full object-contain rounded-lg shadow-lg"
             />
           )}
+        </div>
+      )}
+
+      {isEditPopupOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white w-full max-w-5xl py-6 px-8 rounded-lg shadow-lg overflow-auto max-h-[90vh]">
+            <h2 className="text-2xl font-bold mb-6 text-center">
+              تعديل البيانات
+            </h2>
+            <form className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* رقم العقار */}
+                <div>
+                  <label className="block font-semibold">رقم العقار</label>
+                  <input
+                    type="text"
+                    name="propertyNumber"
+                    value={editFormData.propertyNumber || ""}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                {/* المقاطعة */}
+                <div>
+                  <label className="block font-semibold">المقاطعة</label>
+                  <input
+                    type="text"
+                    name="district"
+                    value={editFormData.district || ""}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                {/* رقم الدعوى */}
+                <div>
+                  <label className="block font-semibold">رقم الدعوى</label>
+                  <input
+                    type="text"
+                    name="lawsuitNumber"
+                    value={editFormData.lawsuitNumber || ""}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                {/* المساحة في السند */}
+                <div>
+                  <label className="block font-semibold">
+                    المساحة في السند
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="areaInDeed"
+                    value={editFormData.areaInDeed || ""}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                {/* المساحة المستملكة */}
+                <div>
+                  <label className="block font-semibold">
+                    المساحة المستملكة
+                  </label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="acquiredArea"
+                    value={editFormData.acquiredArea || ""}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                {/* وحدة المساحة */}
+                <div>
+                  <label className="block font-semibold">وحدة المساحة</label>
+                  <input
+                    type="text"
+                    name="areaUnit"
+                    value={editFormData.areaUnit || ""}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                {/* سعر المتر */}
+                <div>
+                  <label className="block font-semibold">سعر المتر</label>
+                  <input
+                    type="number"
+                    step="0.01"
+                    name="pricePerMeter"
+                    value={editFormData.pricePerMeter || ""}
+                    onChange={handleEditChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                  />
+                </div>
+                {/* ملاحظات */}
+                <div className="col-span-2">
+                  <label className="block font-semibold">ملاحظات</label>
+                  <textarea
+                    name="notes"
+                    value={editFormData.notes || ""}
+                    onChange={handleEditChange}
+                    className="w-full h-32 max-h-32 p-2 border border-gray-300 rounded"
+                    rows="4"
+                    placeholder="أدخل الملاحظات هنا..."
+                  ></textarea>
+                </div>
+              </div>
+
+              {/* الأزرار */}
+              <div className="flex justify-end space-x-2 mt-4">
+                <button
+                  type="button"
+                  onClick={closeEditPopup}
+                  className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500 ml-3"
+                >
+                  إلغاء
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSaveEdit}
+                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                  حفظ
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
     </div>

@@ -127,6 +127,9 @@ public class Stocks
         YearlyArea = yearlyValues;
     }
 
+    [NotMapped]
+    public string? UserName { get; set; } // خاصية غير مخرنة في قاعدة البيانات
+
     // دالة مساعدة لعرض ملخص المساحات
     public string GetSummary()
     {

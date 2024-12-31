@@ -20,7 +20,7 @@ namespace Eststate.Controllers
         }
 
         // الحصول على البيانات التي بدون حسم
-        // جدول القرارات
+        // جدول الإستملاكات
         [HttpGet("GetNotDoneDecisions")]
         public async Task<ActionResult<IEnumerable<Decisions>>> Get()
         {
@@ -40,7 +40,7 @@ namespace Eststate.Controllers
         }
 
         // الحصول على البيانات التي تمتلك حسم
-        // جدول الإستملاكات
+        // جدول القرارات
         [HttpGet("DoneDecisions")]
         public async Task<ActionResult<IEnumerable<Decisions>>> GetDone()
         {
